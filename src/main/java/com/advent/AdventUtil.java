@@ -69,9 +69,26 @@ public class AdventUtil {
         System.out.println();
     }
 
+    public static <T> void printMatrix(List<List<T>> matrix){
+        matrix.forEach(r->{
+            r.forEach(o-> System.out.print(o));
+            System.out.println();
+        });
+        System.out.println();
+    }
+
     public static <T> void matrixMap(List<List<T>> matrix, OnColCallback<T> colCallback){
         matrix.forEach(l->{
             l.forEach(t -> colCallback.onColCallback(t));
         });
+    }
+    public static <T> void matrixMap(List<List<T>> matrix, OnColCallbackWithCoords<T> colCallback){
+        for (int y = 0; y < matrix.size(); y++) {
+            List<T> ts = matrix.get(y);
+            for (int x = 0; x < ts.size(); x++) {
+                T t = ts.get(x);
+                colCallback.onColCallback(x, y, t);
+            }
+        }
     }
 }
